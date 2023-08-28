@@ -1,5 +1,5 @@
 [{
     "title": "title 1",
     "text": "some inputed text",
-    "id": "uniqueID"
+    "note_id": "uniqueID"
 }]
