@@ -1,10 +1,13 @@
 const app = require('express').Router();
-const {readFromFile, readAndAppend} = require('../helpers/fsUtils')
+const {readFromFile, readAndAppend, deleteNoteFromFile} = require('../helpers/fsUtils')
 const uuid = require('../helpers/uuid')
+const path = require("path");
+
+const notesPath = 'db/db.json'
 
 app.get('/notes', (req,res)=> {
 console.log('in get /api/notes')
- readFromFile('../../../../../../Users/clayt/bootcamp/WORKING/Note-Taker/db/db.json').then((data) => res.json(JSON.parse(data)));
+readFromFile(notesPath).then((data) => res.json(JSON.parse(data)));
 });
 
 app.post('/notes', (req,res)=>{
@@ -16,15 +19,21 @@ app.post('/notes', (req,res)=>{
       const newNote = {
         title,
         text,
-        note_id: uuid(),
+        id: uuid(),
       };
   
-      readAndAppend(newNote, '../db/db.json');
+      readAndAppend(notesPath, newNote);
       res.json(`Note added successfully`);
     } else {
       res.error('Error in adding note');
     }
   });
+
+  app.delete('/notes/:id', (req, res) => {
+    console.log('in get /api/notes/:id')
+    deleteNoteFromFile(notesPath, req.params.id)
+    res.sendFile(path.join(__dirname, "../public/notes.html"));
+  })
 
 
 

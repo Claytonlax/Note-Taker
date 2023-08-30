@@ -1,5 +1,7 @@
-[{
-    "title": "title 1",
-    "text": "some inputed text",
-    "note_id": "uniqueID"
-}]
+[
+    {
+        "title": "test",
+        "text": "test",
+        "id": "7fba"
+    }
+]
